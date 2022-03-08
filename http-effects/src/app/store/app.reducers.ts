@@ -3,5 +3,9 @@ import * as reducers from './reducers'
 
 
 export interface AppState {
-    usuarios: reducers.usuariosReducer,
+    users: reducers.UsersState,
+}
+
+export const appReducers: ActionReducerMap<AppState> = {
+    users: reducers.usersReducer
 }
