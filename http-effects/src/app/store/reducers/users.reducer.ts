@@ -32,10 +32,14 @@ const _usersReducer = createReducer(
         loading: false,
         loaded: false,
         users: [],
-        error: payload
+        error: {
+            url: payload.url,
+            name: payload.name,
+            msj: payload.message
+        }
     })),
 );
 
-export function usersReducer(state: UsersState, action: Action) {
+export function usersReducer(state: any, action: Action) {
     return _usersReducer(state, action);
 }
