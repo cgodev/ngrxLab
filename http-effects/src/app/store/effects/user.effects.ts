@@ -17,7 +17,7 @@ export class UserEffects {
             ofType(userActions.cargarUsuario),
             mergeMap(
                 ( action ) => this.getUser( action.id ).pipe(
-                    map( user => userActions.cargarUsuarioSuccess({usuario: user}) ),
+                    map( user => userActions.loadUsersuccess({usuario: user}) ),
                     catchError(error => of(userActions.cargarUsuarioError({payload: error})))
                 )
             ),

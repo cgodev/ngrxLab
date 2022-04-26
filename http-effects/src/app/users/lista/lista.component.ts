@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { pluck } from 'rxjs';
+import { pluck, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { cargarUsuarios } from 'src/app/store/actions';
+import { loadUsers } from 'src/app/store/actions';
 import { AppState } from 'src/app/store/app.reducers';
 
 @Component({
@@ -11,18 +11,19 @@ import { AppState } from 'src/app/store/app.reducers';
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.scss']
 })
-export class ListaComponent implements OnInit {
+export class ListaComponent implements OnInit, OnDestroy {
 
   usuarios: User[] = [];
   loading: boolean = false;
   error: any;
+  usersSubscription: Subscription = new Subscription();
 
   constructor( 
     private store: Store<AppState> ) { }
 
   ngOnInit(): void {
 
-    this.store.select('users').subscribe(
+    this.usersSubscription = this.store.select('users').subscribe(
       ({users, loading, error}) => {
         this.usuarios = users;
         this.loading = loading;
@@ -30,8 +31,12 @@ export class ListaComponent implements OnInit {
       }
     )
 
-    this.store.dispatch( cargarUsuarios() );
+    this.store.dispatch( loadUsers() );
     
+  }
+
+  ngOnDestroy(){
+    this.usersSubscription.unsubscribe();
   }
 
 }

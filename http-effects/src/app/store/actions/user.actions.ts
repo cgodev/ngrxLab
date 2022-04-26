@@ -6,7 +6,7 @@ export const cargarUsuario = createAction(
     props<{ id: string }>()
 );
 
-export const cargarUsuarioSuccess = createAction(
+export const loadUsersuccess = createAction(
     `[Usuario] Cargar Usuario Success`,
     props<{ usuario: User }>());
 

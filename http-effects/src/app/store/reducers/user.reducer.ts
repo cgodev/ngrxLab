@@ -1,6 +1,6 @@
 import { Action, createReducer, on, State } from "@ngrx/store";
 import { User } from "src/app/models/user.model";
-import { cargarUsuario, cargarUsuarioError, cargarUsuarioSuccess } from '../actions';
+import { cargarUsuario, cargarUsuarioError, loadUsersuccess } from '../actions';
 
 export interface UserState {
     id: string,
@@ -22,7 +22,7 @@ const _UserReducer = createReducer(
     UserInitialState,
     on(cargarUsuario, (state, { id }) => ({ ...state, loading: true, id: id })),
 
-    on(cargarUsuarioSuccess, (state, { usuario }) => ({ 
+    on(loadUsersuccess, (state, { usuario }) => ({ 
         ...state, 
         loading: false,
         loaded: true,

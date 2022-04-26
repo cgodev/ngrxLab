@@ -12,24 +12,19 @@ export class UsersEffects {
         private usersService: UserService
     ) { }
 
-    cargarUsuarios$ = createEffect(
+    loadUsers$ = createEffect(
         () => this.actions$.pipe(
-            ofType(usersActions.cargarUsuarios),
+            ofType(usersActions.loadUsers),
             mergeMap(
                 () => this.getUsers().pipe(
-                    map( users => usersActions.cargarUsuariosSuccess({usuarios: users}) ),
-                    catchError(error => of(usersActions.cargarUsuariosError({payload: error})))
+                    map( users => usersActions.loadUsersSuccess({users: users}) ),
+                    catchError(error => of(usersActions.loadUsersError({payload: error})))
                 )
             ),
-            
-
         )
     );
 
     getUsers(): Observable<any> {
         return this.usersService.getUsers();
     }
-
-
-
 }
